@@ -26,3 +26,10 @@ export const addBook = async data => {
   const newBook = await Book.create(data);
   return newBook;
 };
+
+export const updateBookByIsbn = async (isbn, data) => {
+  const updatedContact = await Book.findOneAndUpdate(isbn, data, {
+    new: true,
+  });
+  return updatedContact;
+};
