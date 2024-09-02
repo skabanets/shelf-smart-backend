@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import "dotenv/config";
+import { bookRouter } from "./routes/bookRouter.js";
 
 const { PORT = 3000, DB_URL } = process.env;
 
@@ -9,6 +10,8 @@ export const app = express();
 
 app.use(morgan("tiny"));
 app.use(express.json());
+
+app.use("/api/books", bookRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
