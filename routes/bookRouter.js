@@ -9,3 +9,4 @@ export const bookRouter = express.Router();
 bookRouter.get("/", booksControllers.getAllBooks);
 bookRouter.post("/", validateBody(createBookSchema), booksControllers.createBook);
 bookRouter.put("/:isbn", isValidIsbn, validateBody(createBookSchema), booksControllers.updateBook);
+bookRouter.delete("/:isbn", isValidIsbn, booksControllers.deleteBook);

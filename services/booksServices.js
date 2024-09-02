@@ -33,3 +33,8 @@ export const updateBookByIsbn = async (isbn, data) => {
   });
   return updatedContact;
 };
+
+export const removeBookByIsbn = async ({ isbn }) => {
+  const removedBook = await Book.findOneAndDelete({ isbn });
+  return removedBook;
+};

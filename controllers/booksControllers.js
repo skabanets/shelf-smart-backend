@@ -1,6 +1,11 @@
 import { HttpError } from "../helpers/HttpError.js";
 import { ctrlWrapper } from "../helpers/ctrlWrapper.js";
-import { addBook, fetchBooks, updateBookByIsbn } from "../services/booksServices.js";
+import {
+  addBook,
+  fetchBooks,
+  removeBookByIsbn,
+  updateBookByIsbn,
+} from "../services/booksServices.js";
 
 const getAllBooks = async (req, res) => {
   const { page = 1, limit = 10, query = "" } = req.query;
@@ -39,8 +44,21 @@ const updateBook = async (req, res) => {
   res.json(result);
 };
 
+const deleteBook = async (req, res) => {
+  const { isbn } = req.params;
+
+  const result = await removeBookByIsbn({ isbn });
+
+  if (!result) {
+    throw HttpError(404);
+  }
+
+  res.status(204).json();
+};
+
 export default {
   getAllBooks: ctrlWrapper(getAllBooks),
   createBook: ctrlWrapper(createBook),
   updateBook: ctrlWrapper(updateBook),
+  deleteBook: ctrlWrapper(deleteBook),
 };
