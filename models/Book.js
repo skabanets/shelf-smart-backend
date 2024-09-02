@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { isbnRegexp } from "../constants/book-constants";
+import { isbnRegexp } from "../constants/book-constants.js";
 
 const bookShema = new Schema(
   {

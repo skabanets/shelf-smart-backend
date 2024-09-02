@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { isbnRegexp } from "../constants/book-constants";
+import { isbnRegexp } from "../constants/book-constants.js";
 
 export const createBookSchema = Joi.object({
   isbn: Joi.string().pattern(isbnRegexp).required().messages({

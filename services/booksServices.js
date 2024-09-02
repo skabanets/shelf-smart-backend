@@ -1,5 +1,6 @@
-import { Book } from "../models/Book";
+import { Book } from "../models/Book.js";
 
 export const addBook = async data => {
-  return (newBook = await Book.create(data));
+  const newBook = await Book.create(data);
+  return newBook;
 };
