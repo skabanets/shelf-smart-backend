@@ -1,6 +1,6 @@
 import { Book } from "../models/Book.js";
 
-export const fetchBooks = async ({ skip, limit, query }) => {
+export const fetchBooks = async ({ query }) => {
   const searchCondition = query
     ? {
         $or: [
@@ -10,16 +10,8 @@ export const fetchBooks = async ({ skip, limit, query }) => {
       }
     : {};
 
-  let booksQuery = Book.find(searchCondition, "isbn title author isBorrowed")
-    .skip(skip)
-    .limit(limit);
-
-  const totalBooks = await Book.countDocuments(searchCondition);
-  const totalPages = Math.ceil(totalBooks / limit);
-
-  const books = await booksQuery.exec();
-
-  return { books, totalPages };
+  const books = await Book.find(searchCondition, "isbn title author isBorrowed").exec();
+  return books;
 };
 
 export const addBook = async data => {

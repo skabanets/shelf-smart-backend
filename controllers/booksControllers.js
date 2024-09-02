@@ -8,12 +8,11 @@ import {
 } from "../services/booksServices.js";
 
 const getAllBooks = async (req, res) => {
-  const { page = 1, limit = 10, query = "" } = req.query;
-  const skip = (page - 1) * limit;
+  const { query = "" } = req.query;
 
-  const { books, totalPages } = await fetchBooks({ skip, limit, query });
+  const result = await fetchBooks({ query });
 
-  res.json({ books, totalPages });
+  res.json(result);
 };
 
 const createBook = async (req, res) => {
