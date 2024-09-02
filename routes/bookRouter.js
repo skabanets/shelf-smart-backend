@@ -5,4 +5,5 @@ import { createBookSchema } from "../schemas/bookSchemas.js";
 
 export const bookRouter = express.Router();
 
+bookRouter.get("/", booksControllers.getAllBooks);
 bookRouter.post("/", validateBody(createBookSchema), booksControllers.createBook);
