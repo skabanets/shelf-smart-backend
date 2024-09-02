@@ -1,1 +1,1 @@
-export const isbnRegexp = /^\d{3}-\d-\d{3}-\d{5}-\d$/;
+export const isbnRegexp = /^\d{3}-\d{1,5}-\d{1,7}-\d{1,7}-\d{1}$/;
