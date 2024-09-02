@@ -18,3 +18,7 @@ export const createBookSchema = Joi.object({
   }),
   isBorrowed: Joi.boolean().default(false),
 });
+
+export const markAsBorrowedSchema = Joi.object({
+  isBorrowed: Joi.boolean().required(),
+});
