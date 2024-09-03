@@ -17,7 +17,7 @@ const getAllBooks = async (req, res) => {
 
 const createBook = async (req, res) => {
   const { isbn } = req.body;
-  const { books } = await fetchBooks({ isbn });
+  const books = await fetchBooks({ isbn });
 
   if (books.length) {
     throw HttpError(
