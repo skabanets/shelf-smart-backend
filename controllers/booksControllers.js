@@ -2,6 +2,7 @@ import { HttpError } from "../helpers/HttpError.js";
 import { ctrlWrapper } from "../helpers/ctrlWrapper.js";
 import {
   addBook,
+  fetchBookByIsbn,
   fetchBooks,
   removeBookByIsbn,
   updateBookByIsbn,
@@ -17,9 +18,10 @@ const getAllBooks = async (req, res) => {
 
 const createBook = async (req, res) => {
   const { isbn } = req.body;
-  const books = await fetchBooks({ isbn });
 
-  if (books.length) {
+  const book = await fetchBookByIsbn({ isbn });
+
+  if (book.length) {
     throw HttpError(
       409,
       "A book with the ISBN you have entered already exists in the database. Please check the ISBN number and try again."

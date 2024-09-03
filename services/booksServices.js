@@ -1,3 +1,4 @@
+import { HttpError } from "../helpers/HttpError.js";
 import { Book } from "../models/Book.js";
 
 export const fetchBooks = async ({ query }) => {
@@ -14,16 +15,28 @@ export const fetchBooks = async ({ query }) => {
   return books;
 };
 
+export const fetchBookByIsbn = async isbn => {
+  const book = await Book.find(isbn).exec();
+  return book;
+};
+
 export const addBook = async data => {
   const newBook = await Book.create(data);
   return newBook;
 };
 
 export const updateBookByIsbn = async (isbn, data) => {
-  const updatedContact = await Book.findOneAndUpdate(isbn, data, {
-    new: true,
-  });
-  return updatedContact;
+  try {
+    const updatedContact = await Book.findOneAndUpdate(isbn, data, {
+      new: true,
+    });
+    return updatedContact;
+  } catch (error) {
+    throw HttpError(
+      409,
+      "Book with the ISBN you have entered already exists in the database. Please check the ISBN number and try again."
+    );
+  }
 };
 
 export const removeBookByIsbn = async ({ isbn }) => {
