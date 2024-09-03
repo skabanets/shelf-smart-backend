@@ -32,10 +32,13 @@ export const updateBookByIsbn = async (isbn, data) => {
     });
     return updatedContact;
   } catch (error) {
-    throw HttpError(
-      409,
-      "Book with the ISBN you have entered already exists in the database. Please check the ISBN number and try again."
-    );
+    if (error.codeName === "DuplicateKey") {
+      throw HttpError(
+        409,
+        "A book with the ISBN you have entered already exists in the database. Please check the ISBN number and try again."
+      );
+    }
+    throw HttpError(409);
   }
 };
 
